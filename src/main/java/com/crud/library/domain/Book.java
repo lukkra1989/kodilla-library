@@ -26,8 +26,7 @@ public class Book {
     @Column(name = "Auhors")
     private String author;
 
-    @Column(name = "publication_dates")
+    @Column(name = "Publication_dates")
     private LocalDate publicationDate;
-
 
 }
