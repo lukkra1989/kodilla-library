@@ -1,16 +1,21 @@
 package com.crud.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Entity(name = "Books")
 public class Book {
 
@@ -29,4 +34,28 @@ public class Book {
     @Column(name = "Publication_dates")
     private LocalDate publicationDate;
 
+    @Column(name = "Is_deleted")
+    private boolean deleted;
+
+    @JsonManagedReference
+    @OneToMany(
+    targetEntity = CopyInLibrary.class,
+    mappedBy = "book",
+    cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY
+    )
+    private List<CopyInLibrary> copiesInLibrary = new ArrayList<>();
+
+    public Book(String title, String author, LocalDate publicationDate) {
+        this.title = title;
+        this.author = author;
+        this.publicationDate = publicationDate;
+    }
+
+    private void setCopiesInLibrary(List<CopyInLibrary> copiesInLibrary) {
+        this.copiesInLibrary = copiesInLibrary;
+    }
+    public void setIsDeleted(boolean isDeleted) {
+        this.deleted = isDeleted;
+    }
 }

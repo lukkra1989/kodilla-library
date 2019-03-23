@@ -5,32 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Entity(name = "Readers")
-public class Reader {
+public class ReaderDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
-    @Column(name = "Reader_id")
     private Long id;
-
-    @Column(name = "Firstname")
     private String firstname;
-
-    @Column(name = "Lastname")
     private String lastname;
-
-    @Column(name = "Register_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate registerDate;
 
-    public Reader(String firstname, String lastname, LocalDate registerDate) {
+    public ReaderDto(String firstname, String lastname, LocalDate registerDate) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.registerDate = registerDate;
