@@ -96,7 +96,7 @@ public class LibraryController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteBookCopy")
-    public void deleteBookCopy(@RequestParam Long bookCopyId) throws BookNotFoundException {
+    public void deleteBookCopy(@RequestParam Long bookCopyId) throws CopyNotFoundException {
         dbService.deleteBookCopy(bookCopyId);
     }
 
