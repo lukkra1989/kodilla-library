@@ -20,7 +20,8 @@ public class BookDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate publicationDate;
-    private List<CopyInLibrary> copiesInLibrary = new ArrayList<>();
+    private boolean deleted;
+    private List<CopyInLibrary> copiesInLibrary;
 
     public BookDto(String title, String author, LocalDate publicationDate) {
         this.title = title;

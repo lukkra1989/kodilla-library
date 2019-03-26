@@ -73,11 +73,15 @@ public class DbService {
         return readerRepository.save(reader);
     }
 
-    public CopyInLibrary saveBookCopy(final Long copyId, final Long bookId, String status) throws BookNotFoundException {
-        return copyInLibraryRepository.save(new CopyInLibrary(copyId, bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new), status));
+    public CopyInLibrary saveBookCopy(final Long bookId, String status) throws BookNotFoundException {
+        return copyInLibraryRepository.save(new CopyInLibrary(bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new), status));
     }
 
     public void deleteBook(final Long bookId) throws BookNotFoundException {
         bookRepository.delete(bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new));
+    }
+
+    public void deleteBookCopy(final Long bookCopyId) throws CopyNotFoundException {
+        copyInLibraryRepository.delete(copyInLibraryRepository.findByCopyId(bookCopyId).orElseThrow(CopyNotFoundException::new));
     }
 }

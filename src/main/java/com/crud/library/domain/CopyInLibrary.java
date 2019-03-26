@@ -26,9 +26,6 @@ public class CopyInLibrary {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Database_Copy_id", unique = true)
-    private Long databaseCopyId;
-
-    @Column(name = "Copy_id")
     private Long copyId;
 
     @Column(name = "Status_of_book")
@@ -45,8 +42,7 @@ public class CopyInLibrary {
     @Column(name = "Is_copy_deleted")
     private boolean deleted;
 
-    public CopyInLibrary(Long copyId, Book book, String status) {
-        this.copyId = copyId;
+    public CopyInLibrary(Book book, String status) {
         this.book = book;
         this.status = status;
     }

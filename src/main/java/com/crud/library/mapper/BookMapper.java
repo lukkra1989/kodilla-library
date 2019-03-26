@@ -20,15 +20,23 @@ public class BookMapper {
 
     public BookDto mapToBookDto(final Book book) {
         return new BookDto(
+                book.getBookId(),
                 book.getTitle(),
                 book.getAuthor(),
-                book.getPublicationDate()
+                book.getPublicationDate(),
+                book.isDeleted(),
+                book.getCopiesInLibrary()
                 );
     }
 
     public List<BookDto> mapToBookDtoList(final List<Book> bookList) {
         return bookList.stream()
-                .map(b -> new BookDto(b.getBookId(), b.getTitle(), b.getAuthor(),b.getPublicationDate(), b.getCopiesInLibrary()))
+                .map(b -> new BookDto(b.getBookId(),
+                                    b.getTitle(),
+                                    b.getAuthor(),
+                                    b.getPublicationDate(),
+                                    b.isDeleted(),
+                                    b.getCopiesInLibrary()))
                 .collect(Collectors.toList());
     }
 }

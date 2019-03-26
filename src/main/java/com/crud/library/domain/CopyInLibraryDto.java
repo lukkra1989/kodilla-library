@@ -13,4 +13,8 @@ public class CopyInLibraryDto {
     private Long bookId;
     private String status;
 
+    public CopyInLibraryDto(Long bookId, String status) {
+        this.bookId = bookId;
+        this.status = status;
+    }
 }
