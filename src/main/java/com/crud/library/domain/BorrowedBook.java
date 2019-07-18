@@ -1,18 +1,17 @@
 package com.crud.library.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @NamedNativeQuery(
         name = "BorrowedBook.getByCopyId",
-        query = "SELECT * FROM Borrowed_books WHERE Copy_Id = :COPYID",
+        query = "SELECT * FROM Borrowed_books WHERE Copy_Id = :COPYID " +
+                "ORDER BY borrow_id DESC",
         resultClass = BorrowedBook.class
 
 )
@@ -53,5 +52,33 @@ public class BorrowedBook {
         this.reader = reader;
         this.borrowDate = borrowDate;
         this.returnDate = returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BorrowedBook that = (BorrowedBook) o;
+
+        if (!borrowId.equals(that.borrowId)) return false;
+        if (!copyInLibrary.equals(that.copyInLibrary)) return false;
+        if (!reader.equals(that.reader)) return false;
+        if (borrowDate != null ? !borrowDate.equals(that.borrowDate) : that.borrowDate != null) return false;
+        return returnDate != null ? returnDate.equals(that.returnDate) : that.returnDate == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = borrowId.hashCode();
+        result = 31 * result + copyInLibrary.hashCode();
+        result = 31 * result + reader.hashCode();
+        result = 31 * result + (borrowDate != null ? borrowDate.hashCode() : 0);
+        result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
+        return result;
     }
 }

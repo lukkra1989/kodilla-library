@@ -16,5 +16,8 @@ public interface ReaderRepository extends CrudRepository<Reader, Long> {
     Optional<Reader> findById(Long id);
 
     @Override
-    Reader save(Reader reader);
+    Reader save(final Reader reader);
+
+    @Override
+    void delete(final Reader reader);
 }

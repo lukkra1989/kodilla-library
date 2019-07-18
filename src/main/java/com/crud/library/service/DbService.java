@@ -10,13 +10,13 @@ import com.crud.library.repository.BorrowedBookRepository;
 import com.crud.library.repository.CopyInLibraryRepository;
 import com.crud.library.repository.ReaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+@Transactional
 @Service
 public class DbService {
 
@@ -61,12 +61,11 @@ public class DbService {
 
     public BorrowedBook returnBook(final Long copyId, final LocalDate dateOfReturn) throws CopyNotFoundException, ReaderNotFoundException, BorrowDateNotFoundException {
 
-        CopyInLibrary copyToReturn = borrowedBookRepository.getByCopyId(copyId).orElseThrow(CopyNotFoundException::new).getCopyInLibrary();
-        copyToReturn.setIsBorrowed(false);
-        return borrowedBookRepository.save(new BorrowedBook(copyToReturn,
-                                                            borrowedBookRepository.getByCopyId(copyId).orElseThrow(ReaderNotFoundException::new).getReader(),
-                                                            borrowedBookRepository.getByCopyId(copyId).orElseThrow(BorrowDateNotFoundException::new).getBorrowDate(),
-                                                            dateOfReturn));
+       List<BorrowedBook> borrowedBooks = borrowedBookRepository.getByCopyId(copyId);
+        BorrowedBook borrowedBook = borrowedBooks.get(0);
+        borrowedBook.getCopyInLibrary().setIsBorrowed(false);
+        borrowedBook.setReturnDate(dateOfReturn);
+        return borrowedBookRepository.save(borrowedBook);
     }
 
     public Reader createReader(final Reader reader) {
@@ -78,10 +77,11 @@ public class DbService {
     }
 
     public void deleteBook(final Long bookId) throws BookNotFoundException {
-        bookRepository.delete(bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new));
+        bookRepository.deleteByBoolean(bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new));
     }
 
     public void deleteBookCopy(final Long bookCopyId) throws CopyNotFoundException {
-        copyInLibraryRepository.delete(copyInLibraryRepository.findByCopyId(bookCopyId).orElseThrow(CopyNotFoundException::new));
+        copyInLibraryRepository.deleteByBoolean(copyInLibraryRepository.findByCopyId(bookCopyId).orElseThrow(CopyNotFoundException::new));
     }
+
 }

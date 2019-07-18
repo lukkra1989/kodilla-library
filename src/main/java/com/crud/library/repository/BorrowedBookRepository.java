@@ -16,9 +16,12 @@ public interface BorrowedBookRepository extends CrudRepository<BorrowedBook, Lon
     List<BorrowedBook> findAll();
 
     @Override
-    BorrowedBook save(BorrowedBook borrowedBook);
+    BorrowedBook save(final BorrowedBook borrowedBook);
 
     @Query
-    Optional<BorrowedBook> getByCopyId(@Param("COPYID") Long copyId);
+    List<BorrowedBook> getByCopyId(@Param("COPYID") Long copyId);
+
+    @Override
+    void delete(final BorrowedBook borrowedBook);
 
 }

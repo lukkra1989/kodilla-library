@@ -56,4 +56,24 @@ public class CopyInLibrary {
     public void setIsDeleted(boolean isDeleted) {
         this.deleted = isDeleted;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CopyInLibrary that = (CopyInLibrary) o;
+
+        if (copyId != null ? !copyId.equals(that.copyId) : that.copyId != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        return book != null ? book.equals(that.book) : that.book == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = copyId != null ? copyId.hashCode() : 0;
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (book != null ? book.hashCode() : 0);
+        return result;
+    }
 }

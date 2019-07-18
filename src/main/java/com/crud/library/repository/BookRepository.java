@@ -18,9 +18,11 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     @Override
     Book save(Book book);
 
-    @Override
-    default void delete(Book book) {
+    default void deleteByBoolean(Book book) {
         book.setIsDeleted(true);
     }
+
+    @Override
+    void delete(final Book book);
 
 }

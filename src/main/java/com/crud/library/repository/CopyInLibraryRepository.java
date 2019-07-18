@@ -11,17 +11,21 @@ import java.util.Optional;
 @Repository
 public interface CopyInLibraryRepository extends CrudRepository<CopyInLibrary, Long> {
 
+    @Override
     List<CopyInLibrary> findAll();
 
     Optional<CopyInLibrary> findByCopyId(Long id);
 
-    CopyInLibrary save(CopyInLibrary copyInLibrary);
-
     @Override
-    default void delete(CopyInLibrary copyInLibrary) {
+    CopyInLibrary save(final CopyInLibrary copyInLibrary);
+
+    default void deleteByBoolean(CopyInLibrary copyInLibrary) {
         copyInLibrary.setIsDeleted(true);
     }
 
     List<CopyInLibrary> findAllNotBorrowed(@Param("bookId") Long bookId);
+
+    @Override
+    void delete(final CopyInLibrary copyInLibrary);
 
 }

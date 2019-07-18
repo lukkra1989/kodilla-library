@@ -60,7 +60,7 @@ public class LibraryController {
 //    -------------------------------------------------------------------------
     @RequestMapping(method = RequestMethod.POST, value = "addReader", consumes = APPLICATION_JSON_VALUE)
     public void addReader(@RequestBody ReaderDto reader) {
-        dbService.createReader(readerMapper.mapReader(reader));
+        dbService.createReader(readerMapper.mapToReader(reader));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addBookCopy", consumes = APPLICATION_JSON_VALUE)
