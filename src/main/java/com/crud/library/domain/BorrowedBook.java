@@ -47,6 +47,7 @@ public class BorrowedBook {
         this.reader = reader;
         this.borrowDate = borrowDate;
     }
+
     public BorrowedBook(CopyInLibrary copyInLibrary, Reader reader, LocalDate borrowDate, LocalDate returnDate) {
         this.copyInLibrary = copyInLibrary;
         this.reader = reader;

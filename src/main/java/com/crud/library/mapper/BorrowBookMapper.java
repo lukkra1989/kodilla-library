@@ -5,7 +5,8 @@ import com.crud.library.domain.BorrowedBookDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BorrowBookMapper {
+public class
+BorrowBookMapper {
 
     public BorrowedBookDto mapToBorrowBookDto(BorrowedBook borrowedBook) {
         return new BorrowedBookDto(borrowedBook.getBorrowId(),

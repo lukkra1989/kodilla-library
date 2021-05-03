@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CopyInLibraryMapper {
 
-    public CopyInLibraryDto mapToCopyInLibraryDto (CopyInLibrary copyInLibrary) throws CopyNotFoundException {
+    public CopyInLibraryDto mapToCopyInLibraryDto(CopyInLibrary copyInLibrary) throws CopyNotFoundException {
         return new CopyInLibraryDto(copyInLibrary.getCopyId(), copyInLibrary.getBook().getBookId(), copyInLibrary.getBook().getCopiesInLibrary().stream()
-                .filter(b -> b.getCopyId() == copyInLibrary.getCopyId())
-                .map(c -> c.getStatus())
+                .filter(book -> book.getCopyId() == copyInLibrary.getCopyId())
+                .map(o -> o.getStatus())
                 .findFirst()
                 .orElseThrow(CopyNotFoundException::new));
     }

@@ -26,17 +26,17 @@ public class BookMapper {
                 book.getPublicationDate(),
                 book.isDeleted(),
                 book.getCopiesInLibrary()
-                );
+        );
     }
 
     public List<BookDto> mapToBookDtoList(final List<Book> bookList) {
         return bookList.stream()
                 .map(b -> new BookDto(b.getBookId(),
-                                    b.getTitle(),
-                                    b.getAuthor(),
-                                    b.getPublicationDate(),
-                                    b.isDeleted(),
-                                    b.getCopiesInLibrary()))
+                        b.getTitle(),
+                        b.getAuthor(),
+                        b.getPublicationDate(),
+                        b.isDeleted(),
+                        b.getCopiesInLibrary()))
                 .collect(Collectors.toList());
     }
 }

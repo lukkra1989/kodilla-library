@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 public class ReaderDto {
-
     private Long id;
     private String firstname;
     private String lastname;

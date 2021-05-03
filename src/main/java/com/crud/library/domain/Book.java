@@ -1,10 +1,9 @@
 package com.crud.library.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,10 +37,10 @@ public class Book {
 
     @JsonManagedReference
     @OneToMany(
-    targetEntity = CopyInLibrary.class,
-    mappedBy = "book",
-    cascade = CascadeType.ALL,
-    fetch = FetchType.EAGER
+            targetEntity = CopyInLibrary.class,
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
     )
     private List<CopyInLibrary> copiesInLibrary = new ArrayList<>();
 
@@ -54,6 +53,7 @@ public class Book {
     private void setCopiesInLibrary(List<CopyInLibrary> copiesInLibrary) {
         this.copiesInLibrary = copiesInLibrary;
     }
+
     public void setIsDeleted(boolean isDeleted) {
         this.deleted = isDeleted;
     }

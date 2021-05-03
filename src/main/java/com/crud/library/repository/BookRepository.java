@@ -22,7 +22,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
         book.setIsDeleted(true);
     }
 
+
+
     @Override
     void delete(final Book book);
-
 }

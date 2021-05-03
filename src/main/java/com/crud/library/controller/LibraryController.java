@@ -32,7 +32,6 @@ public class LibraryController {
     @Autowired
     private BorrowBookMapper borrowedBookMapper;
 
-//    -------------------------------------------------------------------------
     @RequestMapping(method = RequestMethod.GET, value = "getBooks")
     public List<BookDto> getBooks() {
         return bookMapper.mapToBookDtoList(dbService.getAllBooks());
@@ -57,7 +56,7 @@ public class LibraryController {
     public Integer getNotBorrowedCopies(@RequestParam Long bookId) {
         return dbService.findAllNotBorrowed(bookId).size();
     }
-//    -------------------------------------------------------------------------
+
     @RequestMapping(method = RequestMethod.POST, value = "addReader", consumes = APPLICATION_JSON_VALUE)
     public void addReader(@RequestBody ReaderDto reader) {
         dbService.createReader(readerMapper.mapToReader(reader));
@@ -78,17 +77,16 @@ public class LibraryController {
         dbService.borrowBook(borrowBookDto.getBookId(), borrowBookDto.getReaderId(), borrowBookDto.getBorrowDate());
     }
 
-//    -------------------------------------------------------------------------
     @RequestMapping(method = RequestMethod.PUT, value = "updateCopyStatus", consumes = APPLICATION_JSON_VALUE)
     public CopyInLibraryDto updateCopyStatus(@RequestBody CopyInLibraryDto copyInLibraryDto) throws BookNotFoundException, CopyNotFoundException {
-        return copyInLibraryMapper.mapToCopyInLibraryDto(dbService.saveBookCopy(copyInLibraryDto.getBookId(),copyInLibraryDto.getStatus()));
+        return copyInLibraryMapper.mapToCopyInLibraryDto(dbService.saveBookCopy(copyInLibraryDto.getBookId(), copyInLibraryDto.getStatus()));
     }
+
     @RequestMapping(method = RequestMethod.PUT, value = "returnBook", consumes = APPLICATION_JSON_VALUE)
     public BorrowedBookDto returnBook(@RequestBody ReturnBookDto returnBookDto) throws CopyNotFoundException, ReaderNotFoundException, BorrowDateNotFoundException {
         return borrowedBookMapper.mapToBorrowBookDto(dbService.returnBook(returnBookDto.getCopyId(), returnBookDto.getReturnDate()));
     }
 
-//    -------------------------------------------------------------------------
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteBook")
     public void deleteBook(@RequestParam Long bookId) throws BookNotFoundException {
@@ -99,6 +97,4 @@ public class LibraryController {
     public void deleteBookCopy(@RequestParam Long bookCopyId) throws CopyNotFoundException {
         dbService.deleteBookCopy(bookCopyId);
     }
-
-
 }

@@ -13,7 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,7 +26,7 @@ public class CopyInLibraryMapperTestSuite {
     @Test
     public void mapToCopyInLibraryDto() {
         //Given
-        Book book = new Book(1L, "Test_title", "Test_author", LocalDate.of(2019,1,1), false, new ArrayList<>());
+        Book book = new Book(1L, "Test_title", "Test_author", LocalDate.of(2019, 1, 1), false, new ArrayList<>());
         CopyInLibrary copyInLibrary = new CopyInLibrary(book, "test_status");
 
         try {
@@ -34,8 +35,8 @@ public class CopyInLibraryMapperTestSuite {
 
             //Then
             assertNotNull(copyInLibraryDtoMapped);
-            assertEquals(1L ,copyInLibraryDtoMapped.getBookId().longValue());
-            assertEquals("test_status",copyInLibraryDtoMapped.getStatus());
+            assertEquals(1L, copyInLibraryDtoMapped.getBookId().longValue());
+            assertEquals("test_status", copyInLibraryDtoMapped.getStatus());
         } catch (CopyNotFoundException e) {
             //Do nothing
         }

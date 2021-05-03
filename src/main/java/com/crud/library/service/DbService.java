@@ -1,6 +1,9 @@
 package com.crud.library.service;
 
-import com.crud.library.domain.*;
+import com.crud.library.domain.Book;
+import com.crud.library.domain.BorrowedBook;
+import com.crud.library.domain.CopyInLibrary;
+import com.crud.library.domain.Reader;
 import com.crud.library.objectNotFoundExceptions.BookNotFoundException;
 import com.crud.library.objectNotFoundExceptions.BorrowDateNotFoundException;
 import com.crud.library.objectNotFoundExceptions.CopyNotFoundException;
@@ -52,8 +55,8 @@ public class DbService {
     public BorrowedBook borrowBook(final Long bookId, final Long readerId, final LocalDate dateOfBorrow) throws BookNotFoundException, CopyNotFoundException, ReaderNotFoundException {
 
         CopyInLibrary copyToBorrow = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new).getCopiesInLibrary().stream()
-        .filter(copy -> !copy.isBorrowed())
-        .findFirst().orElseThrow(CopyNotFoundException::new);
+                .filter(copy -> !copy.isBorrowed())
+                .findFirst().orElseThrow(CopyNotFoundException::new);
         copyToBorrow.setIsBorrowed(true);
 
         return borrowedBookRepository.save(new BorrowedBook(copyToBorrow, readerRepository.findById(readerId).orElseThrow(ReaderNotFoundException::new), dateOfBorrow));
@@ -61,7 +64,7 @@ public class DbService {
 
     public BorrowedBook returnBook(final Long copyId, final LocalDate dateOfReturn) throws CopyNotFoundException, ReaderNotFoundException, BorrowDateNotFoundException {
 
-       List<BorrowedBook> borrowedBooks = borrowedBookRepository.getByCopyId(copyId);
+        List<BorrowedBook> borrowedBooks = borrowedBookRepository.getByCopyId(copyId);
         BorrowedBook borrowedBook = borrowedBooks.get(0);
         borrowedBook.getCopyInLibrary().setIsBorrowed(false);
         borrowedBook.setReturnDate(dateOfReturn);

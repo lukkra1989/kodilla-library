@@ -25,6 +25,8 @@ public interface CopyInLibraryRepository extends CrudRepository<CopyInLibrary, L
 
     List<CopyInLibrary> findAllNotBorrowed(@Param("bookId") Long bookId);
 
+
+
     @Override
     void delete(final CopyInLibrary copyInLibrary);
 

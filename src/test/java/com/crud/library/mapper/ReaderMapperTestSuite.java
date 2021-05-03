@@ -12,7 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,8 +26,8 @@ public class ReaderMapperTestSuite {
     public void mapToReaderDtoListTest() {
         //Given
         List<Reader> readerList = new ArrayList<>();
-        for(int i = 1; i <= 10; i++) {
-            readerList.add(new Reader((long)i, "test_name"+i, "test_surname"+i, LocalDate.of(2019,1,i)));
+        for (int i = 1; i <= 10; i++) {
+            readerList.add(new Reader((long) i, "test_name" + i, "test_surname" + i, LocalDate.of(2019, 1, i)));
         }
 
         //When
@@ -42,7 +43,7 @@ public class ReaderMapperTestSuite {
     @Test
     public void mapToReaderDtoTest() {
         //Given
-        ReaderDto readerDto = new ReaderDto("test_firstname", "test_lastname", LocalDate.of(2019,1,1));
+        ReaderDto readerDto = new ReaderDto("test_firstname", "test_lastname", LocalDate.of(2019, 1, 1));
 
         //When
         Reader readerMapped = readerMapper.mapToReader(readerDto);
@@ -52,6 +53,6 @@ public class ReaderMapperTestSuite {
         assertNotNull(readerMapped);
         assertEquals("test_firstname", readerMapped.getFirstname());
         assertEquals("test_lastname", readerMapped.getLastname());
-        assertEquals(LocalDate.of(2019,1,1), readerMapped.getRegisterDate());
+        assertEquals(LocalDate.of(2019, 1, 1), readerMapped.getRegisterDate());
     }
 }

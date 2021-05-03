@@ -15,7 +15,6 @@ public class ReaderMapper {
                 .map(reader -> new ReaderDto(reader.getId(), reader.getFirstname(), reader.getLastname(), reader.getRegisterDate()))
                 .collect(Collectors.toList());
     }
-
     public Reader mapToReader(ReaderDto readerDto) {
         return new Reader(readerDto.getFirstname(), readerDto.getLastname(), readerDto.getRegisterDate());
     }

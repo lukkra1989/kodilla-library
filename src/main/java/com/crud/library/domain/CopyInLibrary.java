@@ -50,9 +50,11 @@ public class CopyInLibrary {
     private void setBook(Book book) {
         this.book = book;
     }
+
     public void setIsBorrowed(boolean isBorrowed) {
         this.borrowed = isBorrowed;
     }
+
     public void setIsDeleted(boolean isDeleted) {
         this.deleted = isDeleted;
     }

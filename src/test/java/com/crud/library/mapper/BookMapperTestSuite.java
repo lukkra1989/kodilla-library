@@ -61,15 +61,15 @@ public class BookMapperTestSuite {
     public void mapToBookDtoListTest() {
         //Given
         List<Book> books = new ArrayList<>();
-        books.add(new Book(1L, "Test_title", "Test_author", LocalDate.of(2019,1,1), false, new ArrayList<>()));
-        books.add(new Book(2L, "Test_title2", "Test_author2", LocalDate.of(2019,2,2), false, new ArrayList<>()));
+        books.add(new Book(1L, "Title", "Author", LocalDate.of(2019,1,1), false, new ArrayList<>()));
+        books.add(new Book(2L, "Title2", "Author2", LocalDate.of(2019,2,2), false, new ArrayList<>()));
 
         //When
         List<BookDto> booksMapped = bookMapper.mapToBookDtoList(books);
 
         //Then
-        assertEquals("Test_title2", booksMapped.get(1).getTitle());
-        assertEquals("Test_author", booksMapped.get(0).getAuthor());
+        assertEquals("Author", booksMapped.get(0).getAuthor());
+        assertEquals("Title2", booksMapped.get(1).getTitle());
         assertEquals(LocalDate.of(2019,2,2), booksMapped.get(1).getPublicationDate());
     }
 }
